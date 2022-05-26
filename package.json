@@ -9,7 +9,7 @@
     "serve": "vite preview",
     "commit": "gitmoji -c",
     "format": "prettier --write --ignore-unknown .",
-    "prepare": "husky install"
+    "prepare": "husky install && gitmoji -i"
   },
   "license": "MIT",
   "devDependencies": {
