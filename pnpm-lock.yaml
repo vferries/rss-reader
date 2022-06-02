@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   "@solid/eslint-config-base": ^0.5.0
   "@testing-library/jest-dom": ^5.16.4
+  "@types/testing-library__jest-dom": ^5.14.3
   "@typescript-eslint/eslint-plugin": ^5.26.0
   "@typescript-eslint/parser": ^5.26.0
   eslint: ^8.16.0
@@ -31,6 +32,7 @@ dependencies:
 devDependencies:
   "@solid/eslint-config-base": 0.5.0_6f4xmkcmtx3jbcjtzmmsalouhm
   "@testing-library/jest-dom": 5.16.4
+  "@types/testing-library__jest-dom": 5.14.3
   "@typescript-eslint/eslint-plugin": 5.27.0_dszb5tb7atwkjjijmmov4qhi7i
   "@typescript-eslint/parser": 5.27.0_xztl6dhthcahlo6akmb2bmjmle
   eslint: 8.16.0
