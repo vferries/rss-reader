@@ -1,0 +1,49 @@
+.ArticleList {
+  background-color: #eee;
+  display: grid;
+  list-style-type: none;
+  grid-template-columns: 30px 24rem auto 0fr;
+  grid-template-areas: "read title description date";
+  padding: 0;
+  gap: 1px;
+  border: 1px solid lightgray;
+}
+
+.li:nth-of-type(odd) > .cell {
+  background-color: white;
+}
+.li:nth-of-type(even) > .cell {
+  background-color: lightblue;
+}
+
+.li {
+  display: contents;
+}
+
+.read {
+  grid-area: auto/read;
+  background-color: white;
+  padding: 0.2rem 0.4rem;
+}
+
+.title {
+  grid-area: auto/title;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 0.2rem 0.4rem;
+}
+
+.description {
+  grid-area: auto/description;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 0.2rem 0.4rem;
+}
+
+.date {
+  grid-area: auto/date;
+  white-space: nowrap;
+  padding: 0.2rem 0.4rem;
+}

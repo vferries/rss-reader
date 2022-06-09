@@ -5,7 +5,11 @@ body {
     sans-serif;
 }
 
-header {
+main {
+  padding: 1rem;
+}
+
+.header {
   font-size: 2rem;
   font-weight: bold;
   display: grid;
