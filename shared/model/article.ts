@@ -2,6 +2,6 @@ export type Article = {
   title: string;
   link: string;
   description: string;
-  published: Date;
+  published: string;
   read: boolean;
 };

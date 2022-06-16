@@ -1,12 +1,12 @@
+import type { Article } from "shared/model/article";
 import styles from "./ArticleList.module.css";
-import type { Article } from "./model/article";
 
 const fr = new Intl.DateTimeFormat("fr-FR", {
   dateStyle: "long",
   timeStyle: "short",
 });
 
-const toFrenchLocale = (date: Date) => fr.format(date);
+const toFrenchLocale = (date: string) => fr.format(new Date(date));
 
 export function ArticleDetail({ article }: { article: Article }) {
   return (

@@ -1,7 +1,7 @@
+import type { Article } from "shared/model/article";
 import { createResource, For, Show } from "solid-js";
 import { ArticleDetail } from "./ArticleDetail";
 import styles from "./ArticleList.module.css";
-import type { Article } from "./model/article";
 import { client } from "./supabaseClient";
 
 const getArticles = async () => {
