@@ -1,15 +1,31 @@
+import { createResource, For, Show } from "solid-js";
 import { ArticleDetail } from "./ArticleDetail";
 import styles from "./ArticleList.module.css";
-import { articles } from "./model/mock";
+import type { Article } from "./model/article";
+import { client } from "./supabaseClient";
 
-export function ArticleList() {
+const getArticles = async () => {
+  const { data } = await client.from<Article>("article").select("*");
+  return data;
+};
+
+export function ArticleList({
+  fetcher = getArticles,
+}: {
+  fetcher?: () => Promise<Article[] | null>;
+}) {
+  const [data] = createResource(fetcher);
   return (
-    <ul class={styles.ArticleList}>
-      {articles.map((article) => (
-        <li class={styles.li}>
-          <ArticleDetail article={article} />
-        </li>
-      ))}
-    </ul>
+    <Show when={!data.loading} fallback={<>Loading articles...</>}>
+      <ul class={styles.ArticleList}>
+        <For each={data()}>
+          {(article) => (
+            <li class={styles.li}>
+              <ArticleDetail article={article} />
+            </li>
+          )}
+        </For>
+      </ul>
+    </Show>
   );
 }
