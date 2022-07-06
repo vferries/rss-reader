@@ -1,6 +1,6 @@
 import type { Article } from "shared/model/article";
+import { toFrenchLocale } from "../utils/utils";
 import styles from "./ArticleList.module.css";
-import { toFrenchLocale } from "./utils";
 
 export function ArticleListItem({
   article,

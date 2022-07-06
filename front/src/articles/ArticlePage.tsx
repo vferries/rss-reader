@@ -1,16 +1,15 @@
 import type { Article } from "shared/model/article";
 import { createResource, createSignal, For, Show } from "solid-js";
+import { client } from "../utils/supabaseClient";
 import { ArticleDetail } from "./ArticleDetail";
-import styles from "./ArticleList.module.css";
-import { ArticleListItem } from "./ArticleListItem";
-import { client } from "./supabaseClient";
+import { ArticleList } from "./ArticleList";
 
 const getArticles = async () => {
   const { data } = await client.from<Article>("article").select("*");
   return data;
 };
 
-export function ArticleList({
+export function ArticlePage({
   fetcher = getArticles,
 }: {
   fetcher?: () => Promise<Article[] | null>;
@@ -22,18 +21,7 @@ export function ArticleList({
       {selected() ? (
         <ArticleDetail article={selected()!} onClose={() => setSelected()} />
       ) : (
-        <ul class={styles.ArticleList}>
-          <For each={data()}>
-            {(article) => (
-              <li class={styles.li}>
-                <ArticleListItem
-                  article={article}
-                  onClick={() => setSelected(article)}
-                />
-              </li>
-            )}
-          </For>
-        </ul>
+        <ArticleList articles={data() || []} setSelected={setSelected} />
       )}
     </Show>
   );
