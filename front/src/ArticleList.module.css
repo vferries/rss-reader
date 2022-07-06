@@ -2,8 +2,8 @@
   background-color: #eee;
   display: grid;
   list-style-type: none;
-  grid-template-columns: 30px 24rem auto 0fr;
-  grid-template-areas: "read title description date";
+  grid-template-columns: 30px auto 0fr;
+  grid-template-areas: "read title date";
   padding: 0;
   gap: 1px;
   border: 1px solid lightgray;
