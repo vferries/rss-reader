@@ -3,21 +3,44 @@ import { promisify } from "util";
 import { Article } from "shared/model/article";
 import { client } from "./supabaseClient.mjs";
 
-const result = await fetch("https://www.enveille.info/feed.xml");
-const text = await result.text();
+const sources = [
+  "https://www.enveille.info/feed.xml",
+  "https://www.standblog.org/blog/feed/atom",
+  "https://blog.codinghorror.com/rss/",
+];
 
-type Entry = {
-  title: { _: string };
+type AtomEntry = {
+  title: { _: string } | string;
   link: { $: { href: string } };
   summary: { _: string };
   content: { _: string };
   published: string;
 };
-type Feed = { feed: { entry: Entry[] } };
+type RSSEntry = {
+  title: { _: string } | string;
+  link: string;
+  description: string;
+  pubDate: string;
+};
+type AtomFeed = { feed: { entry: AtomEntry[] } };
+type RSSFeed = { rss: { channel: { item: RSSEntry[] } } };
 
-const toArticle = (entry: Entry): Article => {
+async function upsertArticles(articles: Article[]) {
+  let { error } = await client.from<Article>("article").upsert(articles);
+  if (error) {
+    console.error(error);
+  } else {
+    console.log("Articles pushed to Supabase");
+  }
+}
+
+const parser = new xml.Parser({
+  explicitArray: false,
+});
+
+const atomToArticle = (entry: AtomEntry): Article => {
   return {
-    title: entry.title._,
+    title: typeof entry.title === "object" ? entry.title._ : entry.title,
     link: entry.link.$.href,
     read: false,
     description: entry.summary?._ || entry.content?._,
@@ -25,25 +48,34 @@ const toArticle = (entry: Entry): Article => {
   };
 };
 
-if (result.ok) {
-  const parser = new xml.Parser({
-    explicitArray: false,
-  });
-  // TODO Use zod to verify typings
-  const parseString = promisify<string, Feed>(parser.parseString);
-  const doc = await parseString(text);
-  console.log(doc.feed.entry[0].published);
-  console.log(doc.feed.entry[0].link);
-  const articles = doc.feed.entry.map(toArticle);
-  console.log(articles[0]);
-  let { error } = await client.from<Article>("article").insert(articles);
-  if (error) {
-    console.error(error);
+const rssToArticle = (entry: RSSEntry): Article => {
+  return {
+    title: typeof entry.title === "object" ? entry.title._ : entry.title,
+    link: entry.link,
+    read: false,
+    description: entry.description,
+    published: entry.pubDate,
+  };
+};
+
+for (let source of sources) {
+  const result = await fetch(source);
+  const text = await result.text();
+
+  if (result.ok) {
+    const parseString = promisify<string, AtomFeed | RSSFeed>(
+      parser.parseString
+    );
+    const doc = await parseString(text);
+    const articles =
+      "rss" in doc
+        ? doc.rss.channel.item.map(rssToArticle)
+        : doc.feed.entry.map(atomToArticle);
+
+    await upsertArticles(articles);
   } else {
-    console.log("Articles pushed to Supabase");
+    console.error(result.statusText, text);
   }
-} else {
-  console.error(result.statusText, text);
 }
 
 export {};
