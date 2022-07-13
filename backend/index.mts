@@ -1,13 +1,8 @@
 import xml from "xml2js";
 import { promisify } from "util";
 import { Article } from "shared/model/article";
+import { Feed } from "shared/model/feed";
 import { client } from "./supabaseClient.mjs";
-
-const sources = [
-  "https://www.enveille.info/feed.xml",
-  "https://www.standblog.org/blog/feed/atom",
-  "https://blog.codinghorror.com/rss/",
-];
 
 type AtomEntry = {
   title: { _: string } | string;
@@ -24,6 +19,14 @@ type RSSEntry = {
 };
 type AtomFeed = { feed: { entry: AtomEntry[] } };
 type RSSFeed = { rss: { channel: { item: RSSEntry[] } } };
+
+async function getAllFeeds() {
+  const response = await client.from<Feed>("feed").select();
+  if (response.data === null) {
+    throw new Error("Unable to get feeds from database");
+  }
+  return response.data;
+}
 
 async function upsertArticles(articles: Article[]) {
   let { error } = await client.from<Article>("article").upsert(articles);
@@ -58,7 +61,8 @@ const rssToArticle = (entry: RSSEntry): Article => {
   };
 };
 
-for (let source of sources) {
+const feeds = await getAllFeeds();
+for (let source of feeds.map((f) => f.url)) {
   const result = await fetch(source);
   const text = await result.text();
 
