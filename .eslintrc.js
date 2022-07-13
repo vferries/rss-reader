@@ -18,6 +18,7 @@ module.exports = {
   rules: {
     "@typescript-eslint/naming-convention": "off",
     "import/no-default-export": "off",
+    "no-void": "off",
   },
   settings: {
     "import/resolver": {

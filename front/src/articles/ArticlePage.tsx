@@ -5,7 +5,7 @@ import { ArticleDetail } from "./ArticleDetail";
 import { ArticleList } from "./ArticleList";
 
 const getArticles = async () => {
-  const { data } = await client.from<Article>("article").select("*");
+  const { data } = await client.from<Article>("article").select();
   return data;
 };
 
