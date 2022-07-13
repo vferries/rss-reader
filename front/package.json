@@ -13,17 +13,17 @@
   "license": "MIT",
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.4",
-    "@types/testing-library__jest-dom": "^5.14.3",
-    "jsdom": "^19.0.0",
+    "@types/testing-library__jest-dom": "^5.14.5",
+    "jsdom": "^20.0.0",
     "solid-testing-library": "^0.3.0",
-    "typescript": "^4.6.4",
-    "vitest": "^0.13.1"
+    "typescript": "^4.7.4",
+    "vitest": "^0.18.0"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^1.35.4",
     "shared": "link:../shared",
-    "@supabase/supabase-js": "^1.35.3",
-    "solid-js": "^1.4.2",
-    "vite": "^2.9.9",
+    "solid-js": "^1.4.7",
+    "vite": "^3.0.0",
     "vite-plugin-solid": "^2.2.6"
   }
 }
