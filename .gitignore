@@ -2,3 +2,7 @@ node_modules
 dist
 .idea
 .vscode
+
+# Supabase
+**/supabase/.branches
+**/supabase/.temp

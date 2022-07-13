@@ -1,3 +1,4 @@
 setupVitest.ts
 vite.config.ts
 *.test.tsx
+supabase/functions

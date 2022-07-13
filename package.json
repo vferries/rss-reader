@@ -24,6 +24,7 @@
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown",
-    "*.{ts,tsx}": "eslint --fix"
+    "*.{ts,tsx}": "eslint --fix",
+    "supabase/functions/**/*": "deno fmt && deno lint"
   }
 }
