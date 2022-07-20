@@ -1,5 +1,5 @@
 import type { Feed } from "shared/model/feed";
-import { createResource, Show } from "solid-js";
+import { createResource, onCleanup, Show } from "solid-js";
 import { client } from "../utils/supabaseClient";
 import { AddFeed } from "./AddFeed";
 import { FeedList } from "./FeedList";
@@ -15,12 +15,13 @@ export function FeedPage({
   fetcher?: () => Promise<Feed[] | null>;
 }) {
   const [data, { refetch }] = createResource(fetcher);
-  client
+  const subscription = client
     .from<Feed>("feed")
     .on("INSERT", () => {
       void refetch();
     })
     .subscribe();
+  onCleanup(() => subscription.unsubscribe());
   return (
     <Show when={!data.loading} fallback={<>Loading feeds...</>}>
       <AddFeed />
