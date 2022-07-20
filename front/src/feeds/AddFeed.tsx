@@ -1,4 +1,3 @@
-import type { Feed } from "shared/model/feed";
 import { createSignal } from "solid-js";
 import { client } from "../utils/supabaseClient";
 
@@ -7,11 +6,8 @@ export function AddFeed() {
 
   const submit = (evt: Event) => {
     evt.preventDefault();
-    const feedUrl = url();
-    void client
-      .from<Feed>("feed")
-      .upsert({ url: feedUrl, title: feedUrl })
-      .then(() => setUrl(""));
+    const body = JSON.stringify({ url: url() });
+    void client.functions.invoke("add-feed", { body });
   };
   return (
     <form onSubmit={submit}>

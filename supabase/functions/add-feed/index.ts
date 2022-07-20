@@ -3,6 +3,8 @@ import xml from "https://esm.sh/xml2js@^0.4.23";
 import { Article } from "../_shared/model/article.ts";
 import { Feed } from "../_shared/model/feed.ts";
 import { client } from "../_shared/supabaseClient.ts";
+import { corsHeaders } from "../_shared/cors.ts";
+import { headers } from "../_shared/headers.ts";
 
 type TextContent = { _: string } | string;
 
@@ -91,11 +93,16 @@ const parseFeed = async (url: string): Promise<Feed> => {
 };
 
 serve(async (req) => {
+  // This is needed if you're planning to invoke your function from a browser.
+  if (req.method === "OPTIONS") {
+    return new Response("ok", { headers: corsHeaders });
+  }
+
   const { url } = await req.json();
   const data = await parseFeed(url);
 
   return new Response(JSON.stringify(data), {
-    headers: { "Content-Type": "application/json" },
+    headers,
   });
 });
 
