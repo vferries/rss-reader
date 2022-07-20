@@ -14,7 +14,14 @@ export function FeedPage({
 }: {
   fetcher?: () => Promise<Feed[] | null>;
 }) {
-  const [data] = createResource(fetcher);
+  const [data, { refetch }] = createResource(fetcher);
+  client
+    .from<Feed>("feed")
+    .on("INSERT", (payload) => {
+      console.log("Change received!", payload.new);
+      void refetch();
+    })
+    .subscribe();
   return (
     <Show when={!data.loading} fallback={<>Loading feeds...</>}>
       <AddFeed />
