@@ -17,8 +17,7 @@ export function FeedPage({
   const [data, { refetch }] = createResource(fetcher);
   client
     .from<Feed>("feed")
-    .on("INSERT", (payload) => {
-      console.log("Change received!", payload.new);
+    .on("INSERT", () => {
       void refetch();
     })
     .subscribe();
