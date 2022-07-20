@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^1.35.4",
-    "shared": "link:../shared",
+    "shared": "link:../supabase/functions/_shared",
     "solid-js": "^1.4.7",
     "vite": "^3.0.0",
     "vite-plugin-solid": "^2.2.6"
