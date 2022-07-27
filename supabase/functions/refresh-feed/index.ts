@@ -1,10 +1,7 @@
-import { refreshFeed } from "../_shared/feed.ts";
 import { serveWithCorsAndHeaders } from "../_shared/serveWithCorsAndHeaders.ts";
+import { handler } from "./handler.ts";
 
-serveWithCorsAndHeaders(async (req) => {
-  const { url } = await req.json();
-  return await refreshFeed(url);
-});
+serveWithCorsAndHeaders(handler);
 
 /*
  * To invoke:

@@ -1,23 +1,7 @@
-import { client } from "../_shared/supabaseClient.ts";
 import { serveWithCorsAndHeaders } from "../_shared/serveWithCorsAndHeaders.ts";
-import { refreshFeed } from "../_shared/feed.ts";
-import { Feed } from "../_shared/model/feed.ts";
+import { handler } from "./handler.ts";
 
-async function listFeedUrls() {
-  const { error, data } = await client.from<Pick<Feed, "url">>("feed").select(
-    "url",
-  );
-  if (error) {
-    throw error;
-  } else {
-    return data.map((f) => f.url);
-  }
-}
-
-serveWithCorsAndHeaders(async () => {
-  const urls = await listFeedUrls();
-  return await Promise.all(urls.map(refreshFeed));
-});
+serveWithCorsAndHeaders(handler);
 
 /*
  * To invoke:
