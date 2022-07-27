@@ -72,23 +72,16 @@ export const rssToArticle = (entry: RSSEntry): Article => {
 export const refreshFeed = async (url: string) => {
   const result = await fetch(url);
   const text = await result.text();
-  //const feed = { url, title: "" };
 
   if (result.ok) {
     const doc: AtomFeed | RSSFeed = await parser.parseStringPromise(text);
     const articles = "rss" in doc
       ? doc.rss.channel.item.map(rssToArticle)
       : doc.feed.entry.map(atomToArticle);
-    //feed.title = getTextContent(
-    //  "rss" in doc ? doc.rss.channel.title : doc.feed.title,
-    //);
-
-    //await upsertFeed(feed);
     await upsertArticles(articles);
   } else {
     console.error(result.statusText, text);
   }
-  //return feed;
 };
 
 export const parseFeed = async (url: string): Promise<Feed> => {
