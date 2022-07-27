@@ -1,9 +1,9 @@
-import { parseFeed } from "../_shared/feed.ts";
+import { refreshFeed } from "../_shared/feed.ts";
 import { serveWithCorsAndHeaders } from "../_shared/serveWithCorsAndHeaders.ts";
 
 serveWithCorsAndHeaders(async (req) => {
   const { url } = await req.json();
-  return await parseFeed(url);
+  return await refreshFeed(url);
 });
 
 /*
