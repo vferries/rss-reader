@@ -3,6 +3,7 @@ import { createResource, onCleanup, Show } from "solid-js";
 import { client } from "../utils/supabaseClient";
 import { AddFeed } from "./AddFeed";
 import { FeedList } from "./FeedList";
+import { RefreshAll } from "./RefreshAll";
 
 const getFeeds = async () => {
   const { data } = await client.from<Feed>("feed").select();
@@ -25,6 +26,7 @@ export function FeedPage({
   return (
     <Show when={!data.loading} fallback={<>Loading feeds...</>}>
       <AddFeed />
+      <RefreshAll />
       <FeedList feeds={data() || []} />
     </Show>
   );
