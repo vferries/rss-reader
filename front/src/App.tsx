@@ -3,6 +3,7 @@ import { createSignal } from "solid-js";
 import styles from "./App.module.css";
 import { ArticlePage } from "./articles/ArticlePage";
 import { FeedPage } from "./feeds/FeedPage";
+import { Header } from "./header/Header";
 
 const pages: Record<string, Component> = {
   ArticlePage,
@@ -10,32 +11,11 @@ const pages: Record<string, Component> = {
 };
 
 const App: Component = () => {
-  const [page, setPage] = createSignal(FeedPage.name);
+  const pageSignal = createSignal(FeedPage.name);
+  const page = pageSignal[0];
   return (
     <div>
-      <header>
-        <nav class="nav">
-          <div class="nav-left">
-            <a class="brand" href="#">
-              RSS Reader
-            </a>
-            <div class="tabs">
-              <a
-                class={page() === FeedPage.name ? "active" : ""}
-                onClick={() => setPage(FeedPage.name)}
-              >
-                Feeds
-              </a>
-              <a
-                class={page() === ArticlePage.name ? "active" : ""}
-                onClick={() => setPage(ArticlePage.name)}
-              >
-                Articles
-              </a>
-            </div>
-          </div>
-        </nav>
-      </header>
+      <Header pageSignal={pageSignal} />
       <main class={styles.main}>
         <Dynamic component={pages[page()]} />
       </main>
