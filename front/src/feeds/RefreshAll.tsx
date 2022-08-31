@@ -6,7 +6,11 @@ export function RefreshAll() {
   };
 
   return (
-    <button type="button" onClick={refreshAllFeeds}>
+    <button
+      class="button outline primary"
+      type="button"
+      onClick={refreshAllFeeds}
+    >
       Refresh All
     </button>
   );

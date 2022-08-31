@@ -26,8 +26,8 @@ export function FeedPage({
   return (
     <Show when={!data.loading} fallback={<>Loading feeds...</>}>
       <AddFeed />
-      <RefreshAll />
       <FeedList feeds={data() || []} />
+      <RefreshAll />
     </Show>
   );
 }

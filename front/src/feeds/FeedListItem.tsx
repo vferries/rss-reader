@@ -12,7 +12,7 @@ export function FeedListItem({ feed }: { feed: Feed }) {
       <a href={feed.url} class={`${styles.title} ${styles.cell}`}>
         {feed.title}
       </a>
-      <button type="button" onClick={refreshFeed}>
+      <button class="button secondary" type="button" onClick={refreshFeed}>
         Refresh feed
       </button>
     </>
