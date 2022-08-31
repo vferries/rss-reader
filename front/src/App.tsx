@@ -13,12 +13,30 @@ const App: Component = () => {
   const [page, setPage] = createSignal(FeedPage.name);
   return (
     <div>
-      <header class={styles.header}>RSS Reader</header>
+      <header>
+        <nav class="nav">
+          <div class="nav-left">
+            <a class="brand" href="#">
+              RSS Reader
+            </a>
+            <div class="tabs">
+              <a
+                class={page() === FeedPage.name ? "active" : ""}
+                onClick={() => setPage(FeedPage.name)}
+              >
+                Feeds
+              </a>
+              <a
+                class={page() === ArticlePage.name ? "active" : ""}
+                onClick={() => setPage(ArticlePage.name)}
+              >
+                Articles
+              </a>
+            </div>
+          </div>
+        </nav>
+      </header>
       <main class={styles.main}>
-        <div>
-          <button onClick={() => setPage(FeedPage.name)}>Feeds</button>
-          <button onClick={() => setPage(ArticlePage.name)}>Articles</button>
-        </div>
         <Dynamic component={pages[page()]} />
       </main>
     </div>
