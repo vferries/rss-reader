@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^1.35.6",
+    "chota": "^0.8.0",
     "shared": "link:../supabase/functions/_shared",
     "solid-js": "^1.5.3",
     "vite": "^3.0.9",

@@ -4,6 +4,7 @@ specifiers:
   "@supabase/supabase-js": ^1.35.6
   "@testing-library/jest-dom": ^5.16.5
   "@types/testing-library__jest-dom": ^5.14.5
+  chota: ^0.8.0
   jsdom: ^20.0.0
   shared: link:../supabase/functions/_shared
   solid-js: ^1.5.3
@@ -15,6 +16,7 @@ specifiers:
 
 dependencies:
   "@supabase/supabase-js": 1.35.6
+  chota: 0.8.0
   shared: link:../supabase/functions/_shared
   solid-js: 1.5.3
   vite: 3.0.9
@@ -1063,6 +1065,13 @@ packages:
         integrity: sha512-BrgHpW9NURQgzoNyjfq0Wu6VFO6D7IZEmJNdtgNqpzGG8RuNFHt2jQxWlAs4HMe119chBnv+34syEZtc6IhLtA==,
       }
     dev: true
+
+  /chota/0.8.0:
+    resolution:
+      {
+        integrity: sha512-6Y6MrULPNVup+9i+bFF5mXvifw4/N0AqcTO6VkhRcmRqY0XD2/EKq2kD8y7dX/PJnDq9ruHl2NURlPtGkMSNsg==,
+      }
+    dev: false
 
   /color-convert/1.9.3:
     resolution:
