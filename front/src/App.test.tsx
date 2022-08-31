@@ -6,7 +6,7 @@ import App from "./App";
 describe("<App />", () => {
   test("it will render the App title", () => {
     const { getByText, unmount } = render(() => <App />);
-    expect(getByText("RSS Reader")).toBeInTheDocument();
+    expect(getByText("RSS Readerzeubvbzeobvoez")).toBeInTheDocument();
     unmount();
   });
 });
