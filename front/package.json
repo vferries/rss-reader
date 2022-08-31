@@ -8,7 +8,8 @@
     "build": "vite build",
     "serve": "vite preview",
     "test": "vitest",
-    "postinstall": "node fix-jest-dom.mjs"
+    "postinstall": "node fix-jest-dom.mjs",
+    "webstorm-integration": "vitest --watch --reporter=dot --reporter=json --outputFile=.vitest-result.json"
   },
   "license": "MIT",
   "devDependencies": {
